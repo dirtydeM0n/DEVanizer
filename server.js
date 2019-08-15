@@ -5,7 +5,7 @@ const app = express();
 connectDB(); // Calling MongoDB
 
 // Initializing Express-Validator(Middleware)
-app.use(express.json({ extended: false })); // allows us to get data in req.body
+app.use(express.json({ extended: false })); // allows us to get data in req.body for console
 const PORT = process.env.PORT || 5000;
 
 // Get request
