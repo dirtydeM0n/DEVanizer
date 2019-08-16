@@ -1,9 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const { check, validationResult } = require('express-validator');
 const User = require('../../models/User');
 const gravatar = require('gravatar');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const config = require('config');
+const { check, validationResult } = require('express-validator');
 
 // @route  POST api/users
 // @desc   Register user
@@ -51,11 +53,26 @@ router.post(
       });
       const salt = await bcrypt.genSalt(10);
       user.password = await bcrypt.hash(password, salt);
-      await user.save();
+      await user.save(); // Returns a promise with _id that was just saved in mongoDB
 
       // Returning a json web token for automatic login after registration
-
-      res.send('User registered');
+      // Expiration is totally optional
+      // Mongoose abstraction allows us to use id instead of _id
+      const payload = {
+        user: {
+          id: user.id
+        }
+      };
+      jwt.sign(
+        payload,
+        config.get('jwtSecret'),
+        { expiresIn: 360000 },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        }
+      );
+      // res.send('User registered');
     } catch (err) {
       console.error(err.message);
       res.status(500).send('Server Error');
