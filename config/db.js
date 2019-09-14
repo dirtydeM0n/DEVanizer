@@ -2,6 +2,8 @@ const config = require('config'); // Npm module config
 const mongoose = require('mongoose'); // Npm module mongoose
 const db = config.get('mongoURI');
 
+mongoose.set('useFindAndModify', false); // because findOneAndUpdate is deprecated
+
 const connectDB = async () => {
   try {
     await mongoose.connect(db, {
