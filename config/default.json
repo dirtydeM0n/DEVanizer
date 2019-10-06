@@ -1,4 +1,7 @@
 {
   "mongoURI": "mongodb+srv://raterxp:7HiKX8O3O55jRDAa@testdev-focxy.mongodb.net/test?retryWrites=true&w=majority",
-  "jwtSecret": "IsyouOrisyouaintmyBaby"
+  "jwtSecret": "IsyouOrisyouaintmyBaby",
+  "githubClientId": "b4e1859c1fb35113e9ee",
+  "githubSecret": "4e1597daf0ced207f88352b6847752f13314fc0c"
+
 }
